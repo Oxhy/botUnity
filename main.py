@@ -16,7 +16,7 @@ intents.message_content = True  # Activer l'accès au contenu des messages
 intents.members = True  # Activer l'accès aux membres du serveur
 
 bot = commands.Bot(command_prefix='!', intents=intents, help_command=None)
-
+#test
 # ID de l'utilisateur autorisé
 AUTHORIZED_USER_ID = os.getenv('ADMIN_USER')
 AUTHORIZED_SUPERUSER_ID = os.getenv('SUPERADMIN_USER')
