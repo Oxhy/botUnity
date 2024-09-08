@@ -41,3 +41,24 @@ class Help:
                 "`!addUser: [pseudo]`\n"
                 "`!updatePseudo: [pseudo] [newPseudo]`\n"
             )
+    
+    @staticmethod
+    def getBankCommands(self,ctxUser,ctxServer):
+        if str(ctxUser) not in AUTHORIZED_SUPERUSER_ID and str(ctxServer) in AUTHORIZED_SUPERSERVER_ACCESS:
+            return(
+                "`!allRess`\n"
+                "`!searchRess: [nom ressource entre crochet]`\n"
+                "`!updateQty: [nom ressource entre crochet]`\n"
+            )
+        else:
+            return "Aucune commande"
+    
+    @staticmethod
+    def getTransactionCommands(self,ctxUser,ctxServer):
+        if str(ctxUser) not in AUTHORIZED_SUPERUSER_ID and str(ctxServer) in AUTHORIZED_SUPERSERVER_ACCESS:
+            return(
+                "`!add: [nom ressource entre crochet] [Quantité] [.] | Répéter ce format suivant le nombre de ressource à ajouter`\n"
+                "`!retrait: [nom ressource entre crochet] [Quantité] [.] | Répéter ce format suivant le nombre de ressource à retirer`\n"
+            )
+        else:
+            return "Aucune commande"

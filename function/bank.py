@@ -21,8 +21,10 @@ class Bank:
         return response
 
     def search_ressource(self,ress_name):
-        ress_name = supprimer_accents_et_convertir_maj(ress_name)
+        #ress_name = supprimer_accents_et_convertir_maj(ress_name)
+        print(ress_name)
         response = self.supabase.table('BANK').select('*').eq('RESSOURCE_NAME',ress_name).execute()
+        print(response)
         return response
     
     def update_quantity(self,ress_name,qty):

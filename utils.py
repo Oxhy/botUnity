@@ -45,3 +45,14 @@ def supprimer_accents_et_convertir_maj(chaine):
     chaine_sans_accents = ''.join(c for c in chaine if unicodedata.category(c) != 'Mn')
     chaine_majuscule = chaine_sans_accents.upper()
     return chaine_majuscule
+
+# Fonction pour transformer la chaîne en une liste de dictionnaires
+def transformer_ressources(chaine):
+    pattern = r"\[([^\]]+)\](\d+)"
+    ressources = re.findall(pattern, chaine)
+    
+    liste_ressources = [
+        {'RESSOURCE_NAME': nom.strip(), 'QTY': int(qty)}
+        for nom, qty in ressources
+    ]
+    return liste_ressources
