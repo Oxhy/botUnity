@@ -24,22 +24,22 @@ class Help(commands.Cog):
         self.bot = bot
     
     @commands.command()
-    async def help(self,ctx,type:str=None):
+    async def help(self,ctx,command_type:str=None):
         authorId = ctx.author.id
         serverId = ctx.guild.id
-        str = help_handler.getUserCommands(self,authorId,serverId)
-        if not isinstance(type, str):
-                type = ""
+        listCommands = help_handler.getUserCommands(self,authorId,serverId)
+        if not isinstance(command_type, str):
+                command_type = ""
         # Charger l'image pour l'embed principal
         file_main = discord.File('./image/banniere.png', filename="banniere.png")
         # Charger l'image pour la miniature
         file_thumbnail = discord.File('./image/blason.png', filename="blason.png")
-        if type.upper() in ('USER', 'USERS', 'UTILISATEUR', 'UTILISATEURS'):
+        if command_type.upper() in ('USER', 'USERS', 'UTILISATEUR', 'UTILISATEURS'):
             embed = Embed(title="Liste des Commandes ", description="Voici les commandes utilisateurs disponibles pour vous :", color=0x00ff00)
-            embed.add_field(name="**Utilisateurs**", value=str, inline=False)
+            embed.add_field(name="**Utilisateurs**", value=listCommands, inline=False)
         else:
             embed = Embed(title="Liste des Commandes", description="Voici les commandes disponibles pour vous :", color=0x00ff00)
-            embed.add_field(name="**Utilisateurs**", value=str, inline=False)
+            embed.add_field(name="**Utilisateurs**", value=listCommands, inline=False)
         embed.set_image(url="attachment://banniere.png")
         embed.set_thumbnail(url="attachment://blason.png")
         await ctx.send(embed=embed,files=[file_main, file_thumbnail])

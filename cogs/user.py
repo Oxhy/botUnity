@@ -56,8 +56,8 @@ class User(commands.Cog):
 
     @commands.command()
     async def updatePseudo(self,ctx,pseudo:str,newPseudo:str):
-        response = user_handler.update_Pseudo(pseudo,newPseudo)
-        await response_discord(ctx,f'Utilisateur supprimé!',f"L'utilisateur {pseudo} a eu son pseudo changer en {newPseudo} avec succès!")
+        response = user_handler.update_Pseudo(pseudo,newPseudo,ctx.author.id)
+        await response_discord(ctx,f'Utilisateur update!',f"L'utilisateur {pseudo} a eu son pseudo changer en {newPseudo} avec succès!")
 
 
 async def setup(bot):

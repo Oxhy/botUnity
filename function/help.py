@@ -23,17 +23,17 @@ class Help:
 
     @staticmethod
     def getUserCommands(self,ctxUser,ctxServer):
-        if ctxUser in AUTHORIZED_SUPERUSER_ID and ctxServer in AUTHORIZED_SUPERSERVER_ACCESS:
+        if str(ctxUser) in AUTHORIZED_SUPERUSER_ID and str(ctxServer) in AUTHORIZED_SUPERSERVER_ACCESS:
             return (
                 "`!addUser: [pseudo]`\n"
-                "`!updateTeam: [pseudo] [idTeam|pseudo autre joueur] | nécessite les droits admins`\n"
+                "`!updateTeam: [pseudo] [idTeam|pseudo autre joueur]`\n"
                 "`!updatePseudo: [pseudo] [newPseudo]`\n"
-                "`!deleteUser: [pseudo] | nécessite les droits admins`\n"
+                "`!deleteUser: [pseudo]`\n"
             )
-        elif ctxUser not in AUTHORIZED_SUPERUSER_ID and ctxServer in AUTHORIZED_SUPERSERVER_ACCESS:
+        elif str(ctxUser) not in AUTHORIZED_SUPERUSER_ID and str(ctxServer) in AUTHORIZED_SUPERSERVER_ACCESS:
             return (
                 "`!addUser: [pseudo]`\n"
-                "`!updateTeam: [pseudo] [idTeam|pseudo autre joueur] | nécessite les droits admins`\n"
+                "`!updateTeam: [pseudo] [idTeam|pseudo autre joueur]`\n"
                 "`!updatePseudo: [pseudo] [newPseudo]`\n"
             )
         else:

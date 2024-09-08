@@ -29,8 +29,8 @@ class User:
         return response
     
     def update_teamNumber(self,pseudo, idTeam):
-        response = self.supabase.table('USER').update({'IDTEAM': idTeam}).eq('PSEUDO', supprimer_accents_et_convertir_maj(pseudo)).execute()
-        print('Réponse:', response)
+        self.supabase.table('USER').update({'IDTEAM': idTeam}).eq('PSEUDO', supprimer_accents_et_convertir_maj(pseudo)).execute()
+        response = f"Le numéro de team de {pseudo} a été update à {idTeam}"
         return response
     
     def update_teamPseudo(self,pseudo, pseudoTeam):
@@ -41,13 +41,20 @@ class User:
         else:
             return {"error": "Pseudo2 non trouvé ou pas d'idTeam associé"}     
         # Mettre à jour idTeam de pseudo1 avec l'idTeam de pseudo2
-        update_response = self.supabase.table('USER').update({'IDTEAM': idTeam_pseudo2}).eq('PSEUDO', supprimer_accents_et_convertir_maj(pseudo)).execute()
+        self.supabase.table('USER').update({'IDTEAM': idTeam_pseudo2}).eq('PSEUDO', supprimer_accents_et_convertir_maj(pseudo)).execute()
+        update_response = f"Le numéro de team de {pseudo} a été update à {idTeam_pseudo2}"
         return update_response
     
     def delete_user(self,pseudo):
-        response = self.supabase.table('USER').delete().eq('PSEUDO',supprimer_accents_et_convertir_maj(pseudo)).execute()
+        self.supabase.table('USER').delete().eq('PSEUDO',supprimer_accents_et_convertir_maj(pseudo)).execute()
+        response = f"L'utilisateur {pseudo} a été supprimé"
         return response
     
-    def update_Pseudo(self,pseudo,newPseudo):
-        response = self.supabase.table('USER').update({'PSEUDO': supprimer_accents_et_convertir_maj(newPseudo)}).eq('PSEUDO',supprimer_accents_et_convertir_maj(pseudo)).execute()
+    def update_Pseudo(self,pseudo,newPseudo,discordID):
+        idDiscord = self.supabase.table('USER').select('*').eq('DISCORD_ID',discordID).execute()
+        if idDiscord.data:
+            self.supabase.table('USER').update({'PSEUDO': supprimer_accents_et_convertir_maj(newPseudo)}).eq('PSEUDO',supprimer_accents_et_convertir_maj(pseudo)).execute()
+            response = f"Votre pseudo {pseudo} a été update à {newPseudo}"
+        else:
+            response = f"Vous ne pouvez pas update le pseudo d'une autre personne"
         return response
