@@ -2,7 +2,7 @@
 from supabase import create_client, Client
 import os
 from dotenv import load_dotenv
-from utils import supprimer_accents_et_convertir_maj
+from utils import supprimer_accents_et_convertir_maj,supprimer_accents
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -21,13 +21,11 @@ class Bank:
         return response
 
     def search_ressource(self,ress_name):
-        #ress_name = supprimer_accents_et_convertir_maj(ress_name)
-        print(ress_name)
+        ress_name = supprimer_accents(ress_name)
         response = self.supabase.table('BANK').select('*').eq('RESSOURCE_NAME',ress_name).execute()
-        print(response)
         return response
     
     def update_quantity(self,ress_name,qty):
-        ress_name = supprimer_accents_et_convertir_maj(ress_name)
+        ress_name = supprimer_accents(ress_name)
         response = self.supabase.table('BANK').update({'QUANTITY',qty}).eq('RESSOURCE_NAME',ress_name).execute()
         return response

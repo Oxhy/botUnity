@@ -46,6 +46,13 @@ def supprimer_accents_et_convertir_maj(chaine):
     chaine_majuscule = chaine_sans_accents.upper()
     return chaine_majuscule
 
+def supprimer_accents(chaine):
+    # Normaliser la chaîne en forme décomposée
+    chaine = unicodedata.normalize('NFD', chaine)
+    # Supprimer les caractères accentués
+    chaine_sans_accents = ''.join(c for c in chaine if unicodedata.category(c) != 'Mn')
+    return chaine_sans_accents
+
 # Fonction pour transformer la chaîne en une liste de dictionnaires
 def transformer_ressources(chaine):
     pattern = r"\[([^\]]+)\](\d+)"
@@ -56,3 +63,11 @@ def transformer_ressources(chaine):
         for nom, qty in ressources
     ]
     return liste_ressources
+
+def get_quantity_from_bank(resource_name):
+        response = supabase.table('BANK').select('QUANTITY').eq('RESSOURCE_NAME', supprimer_accents_et_convertir_maj(next(iter(resource_name)))).execute()
+        # Vérifier si des données sont retournées
+        if response.data and len(response.data) > 0:
+            return response.data[0]['QUANTITY']
+        else:
+            return 0  # Valeur par défaut si rien n'est trouvé

@@ -25,7 +25,7 @@ class Bank(commands.Cog):
     
     @commands.command()
     async def allRess(self,ctx):
-        if ctx.guild.id in AUTHORIZED_SUPERSERVER_ACCESS:
+        if str(ctx.guild.id) in AUTHORIZED_SUPERSERVER_ACCESS:
             response = bank_handler.get_all_ressource()
             await response_discord(ctx,f"Affichage ressources",response)
         else:
@@ -33,10 +33,9 @@ class Bank(commands.Cog):
     
     @commands.command()
     async def searchRess(self,ctx, *,ress_name: str):
-        if ctx.guild.id in AUTHORIZED_SUPERSERVER_ACCESS:
+        if str(ctx.guild.id) in AUTHORIZED_SUPERSERVER_ACCESS:
             # Retirer les crochets s'ils existent et convertir en majuscules
             ress_name = ress_name.strip("[]")
-            print(ress_name)
             response = bank_handler.search_ressource(ress_name)
             await response_discord(ctx,f"Affichage ressource", response)
         else:
@@ -44,7 +43,7 @@ class Bank(commands.Cog):
     
     @commands.command()
     async def updateQty(self,ctx,*,ress_name:str,qty):
-        if ctx.guild.id in AUTHORIZED_SUPERSERVER_ACCESS:
+        if str(ctx.guild.id) in AUTHORIZED_SUPERSERVER_ACCESS:
             ress_name = ress_name.strip("[]")
             response = bank_handler.update_quantity(ress_name,qty)
             await response_discord(ctx,f"Ressource update",response)

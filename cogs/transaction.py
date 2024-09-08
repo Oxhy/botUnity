@@ -25,7 +25,7 @@ class Transaction(commands.Cog):
     
     @commands.command()
     async def add(self,ctx, *, ressources: str):
-        if ctx.guild.id in AUTHORIZED_SUPERSERVER_ACCESS:
+        if str(ctx.guild.id) in AUTHORIZED_SUPERSERVER_ACCESS:
             # Transformer la chaîne en une liste de ressources
             liste_ressources = transformer_ressources(ressources)
             response = trans_handler.add_ressource_trans_in(liste_ressources,ctx.author.id)
@@ -35,7 +35,7 @@ class Transaction(commands.Cog):
 
     @commands.command()
     async def retrait(self,ctx, *, ressources: str):
-        if ctx.guild.id in AUTHORIZED_SUPERSERVER_ACCESS:
+        if str(ctx.guild.id) in AUTHORIZED_SUPERSERVER_ACCESS:
             # Transformer la chaîne en une liste de ressources
             liste_ressources = transformer_ressources(ressources)
             response = trans_handler.retrait_ressource_trans_in(liste_ressources,ctx.author.id)

@@ -58,3 +58,11 @@ class User:
         else:
             response = f"Vous ne pouvez pas update le pseudo d'une autre personne"
         return response
+    
+    #fonction utilisé dans ressourceUp:
+    def getIdTeam(self,discordID):
+        response = self.supabase.table('USER').select('*').eq('DISCORD_ID',discordID).execute()
+        if response.data[0]['IDTEAM'] is None:
+            return -1
+        else:
+            return response.data[0]['IDTEAM']
