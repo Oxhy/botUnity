@@ -73,3 +73,38 @@ class RessourceUp:
         ress = supprimer_accents(ress)
         response = self.supabase.table('RESSOURCE_UP').select('*').eq('RESSOURCE_NAME',ress).execute()
         return response
+    
+    def search_all_ressource_between_level_categorie(self,name,level1,level2:int = None):
+        if(int(level1) < int(level2)):
+            lvl1 = level1 - 1
+            lvl2 = level2 + 1
+        else:
+            lvl1 = level2 - 1
+            lvl2 = level1 + 1
+        response = self.supabase.table('RESSOURCE_UP').select('*').lt('LEVEL',int(lvl2)).gt('LEVEL',int(lvl1)).eq("NAME",supprimer_accents_et_convertir_maj(name)).execute()
+        return response
+
+    def search_all_ressource_catégorie(self, nom, level):
+        nom = supprimer_accents_et_convertir_maj(nom)
+        levelCat = self.supabase.table('AVANCEMENT').select('LEVEL').eq('NAME',nom).execute()
+        response = self.supabase.table('RESSOURCE_UP').select('*').eq('NAME', nom).lt('LEVEL', level+1).gt('LEVEL',levelCat.data[0]['LEVEL']-1).execute()
+        return response
+    
+    #Il faut faire en sorte de bien calculer toutes les ressources de chaque
+    def search_all_ressource_before_level(self,level):
+        lvl = level + 1
+        liste_Ress = []
+        liste_Ress_Response = []
+        liste_avancement = self.supabase.table('AVANCEMENT').select('*').execute()
+        isInList = False
+        for liste in liste_avancement:
+            if liste.data[0]['LEVEL'] < level:
+                listeRessource = self.supabase.table('RESSOURCE_UP').select('*').eq('NAME', liste.data[0]['NAME']).lt('LEVEL', lvl).gt('LEVEL',liste.data[0]['LEVEL']-1).execute()
+                for listeRess in listeRessource:
+                    for l in liste_Ress:
+                        if listeRess.data[0]['NAME'] == l.data[0]['NAME']:
+                            isInList = True
+                    if isInList == True:
+                        liste_Ress_Response
+        response = self.supabase.table('ressUp').select('*').lt('level',lvl).execute()
+        return response

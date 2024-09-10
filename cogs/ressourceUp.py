@@ -86,6 +86,21 @@ class RessourceUp(commands.Cog):
         response = ressUp_handler.search_all_ressource(ress_name)
         resp = format_ressources_name_ressUp(response.data)
         await response_discord(ctx,f'Liste des besoins en {nom}',resp)
+    
+    @commands.command()
+    async def getRessCat(self,ctx,catégorie:str,level:int,level2:int=None):
+        if level2 is None:
+            response = ressUp_handler.search_all_ressource_catégorie(catégorie, level)
+            await ctx.send(response)
+        else:
+            response = ressUp_handler.search_all_ressource_between_level_categorie(catégorie,level,level2)
+            await ctx.send(response)
+    
+    @commands.command()
+    async def getRessBf(self,ctx,lvl:int):
+        response = ressUp_handler.search_all_ressource_before_level(lvl)
+        await ctx.send(response)
+    
 
 async def setup(bot):
     await bot.add_cog(RessourceUp(bot))
