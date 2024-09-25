@@ -53,7 +53,7 @@ class RessourceUp(commands.Cog):
                 return
 
             # Logique de traitement ici
-            response = ressUp_handler.ajout_ligne(ress, qty, lvl, nom, info, user_handler.getIdTeam(ctx.author.id))
+            response = ressUp_handler.ajout_ligne(ctx,ress, qty, lvl, nom, info, user_handler.getIdTeam(ctx.author.id))
             await response_discord(ctx, response, f"Vous avez bien rajouté la ressource {ress} en quantité {qty}, niveau {lvl}, pour {nom} en tant que {info}.")
         else:
             await response_discord(ctx,"Commande interdite", "Vous n'avez pas accès à cette commande")

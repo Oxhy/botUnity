@@ -27,5 +27,5 @@ class Bank:
     
     def update_quantity(self,ress_name,qty):
         ress_name = supprimer_accents(ress_name)
-        response = self.supabase.table('BANK').update({'QUANTITY',qty}).eq('RESSOURCE_NAME',ress_name).execute()
+        response = self.supabase.table('BANK').update({'QUANTITY':qty}).eq('RESSOURCE_NAME',ress_name).execute()
         return response
