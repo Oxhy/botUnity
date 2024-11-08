@@ -26,7 +26,7 @@ async def response_discord(ctx,title,description):
     # Charger l'image pour l'embed principal
     file_main = discord.File('./image/banniere.png', filename="banniere.png")
     # Charger l'image pour la miniature
-    file_thumbnail = discord.File('./image/blason.png', filename="blason.png")
+    file_thumbnail = discord.File('./image/logo_Prometheus.png', filename="logo_Prometheus.png")
     # Créer l'embed avec l'image principale et la miniature
     embed = discord.Embed(title=title, 
                           description=description,
@@ -34,7 +34,7 @@ async def response_discord(ctx,title,description):
     # Définir l'image principale
     embed.set_image(url="attachment://banniere.png")
     # Définir la miniature
-    embed.set_thumbnail(url="attachment://blason.png")
+    embed.set_thumbnail(url="attachment://logo_Prometheus.png")
     # Envoyer l'embed avec les deux fichiers images
     await ctx.send(embed=embed, files=[file_main, file_thumbnail])
 
