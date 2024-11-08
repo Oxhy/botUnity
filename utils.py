@@ -13,6 +13,9 @@ load_dotenv()
 # Récupérer le token du bot depuis le fichier .env
 TOKEN = os.getenv('DISCORD_TOKEN')
 
+if not TOKEN:
+    raise ValueError("Le token Discord n'a pas été trouvé dans les variables d'environnement.")
+
 # ID de l'utilisateur autorisé
 AUTHORIZED_USER_ID = os.getenv('ADMIN_USER')
 AUTHORIZED_SUPERUSER_ID = os.getenv('SUPERADMIN_USER')
